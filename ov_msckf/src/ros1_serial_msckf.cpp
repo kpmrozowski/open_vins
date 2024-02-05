@@ -264,7 +264,8 @@ int main(int argc, char **argv) {
         auto msg1 = msgs.at(camid_to_msg_index.at(1));
         used_index.insert(camid_to_msg_index.at(0)); // skip this message
         used_index.insert(camid_to_msg_index.at(1)); // skip this message
-        viz->callback_stereo(msg0.instantiate<sensor_msgs::Image>(), msg1.instantiate<sensor_msgs::Image>(), 0, 1);
+        // viz->callback_stereo(msg0.instantiate<sensor_msgs::Image>(), msg1.instantiate<sensor_msgs::Image>(), 0, 1);
+        viz->callback_stereo(msg0.instantiate<sensor_msgs::CompressedImage>(), msg1.instantiate<sensor_msgs::CompressedImage>(), 0, 1);
       } else {
         PRINT_ERROR(RED "[SERIAL]: We currently only support 1 or 2 camera serial input....\n" RESET);
         return EXIT_FAILURE;

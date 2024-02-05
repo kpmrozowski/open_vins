@@ -4,10 +4,12 @@ project(ov_msckf)
 # Include libraries (if we don't have opencv 4, then fallback to opencv 3)
 # The OpenCV version needs to match the one used by cv_bridge otherwise you will get a segmentation fault!
 find_package(Eigen3 REQUIRED)
-find_package(OpenCV 3 QUIET)
-if (NOT OpenCV_FOUND)
-    find_package(OpenCV 4 REQUIRED)
-endif ()
+set(OpenCV_DIR /usr/local/lib/cmake/opencv4)
+find_package(OpenCV 4.7.0 REQUIRED
+    NO_MODULE #Should be optional, tells CMake to use config mode
+    PATHS /usr/local/lib/cmake # Tells CMake to look here
+    NO_DEFAULT_PATH #and don't look anywhere else
+)
 find_package(Boost REQUIRED COMPONENTS system filesystem thread date_time)
 find_package(Ceres REQUIRED)
 message(STATUS "OPENCV: " ${OpenCV_VERSION} " | BOOST: " ${Boost_VERSION} " | CERES: " ${Ceres_VERSION})

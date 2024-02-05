@@ -112,7 +112,8 @@ public:
   void callback_monocular(const sensor_msgs::ImageConstPtr &msg0, int cam_id0);
 
   /// Callback for synchronized stereo camera information
-  void callback_stereo(const sensor_msgs::ImageConstPtr &msg0, const sensor_msgs::ImageConstPtr &msg1, int cam_id0, int cam_id1);
+  // void callback_stereo(const sensor_msgs::ImageConstPtr &msg0, const sensor_msgs::ImageConstPtr &msg1, int cam_id0, int cam_id1);
+  void callback_stereo(const sensor_msgs::CompressedImageConstPtr &msg0, const sensor_msgs::CompressedImageConstPtr &msg1, int cam_id0, int cam_id1);
 
 protected:
   /// Publish the current state
@@ -149,9 +150,11 @@ protected:
   // Our subscribers and camera synchronizers
   ros::Subscriber sub_imu;
   std::vector<ros::Subscriber> subs_cam;
-  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> sync_pol;
+  // typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> sync_pol;
+  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::CompressedImage, sensor_msgs::CompressedImage> sync_pol;
   std::vector<std::shared_ptr<message_filters::Synchronizer<sync_pol>>> sync_cam;
-  std::vector<std::shared_ptr<message_filters::Subscriber<sensor_msgs::Image>>> sync_subs_cam;
+  // std::vector<std::shared_ptr<message_filters::Subscriber<sensor_msgs::Image>>> sync_subs_cam;
+  std::vector<std::shared_ptr<message_filters::Subscriber<sensor_msgs::CompressedImage>>> sync_subs_cam;
 
   // For path viz
   unsigned int poses_seq_imu = 0;
